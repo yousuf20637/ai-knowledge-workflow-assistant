@@ -64,3 +64,9 @@ Run tests:
 ```bash
 pytest
 ```
+
+Apply database migrations:
+
+```bash
+alembic upgrade head
+```
