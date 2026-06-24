@@ -91,3 +91,11 @@ curl -X POST http://127.0.0.1:8001/documents/search \
   -H "Content-Type: application/json" \
   -d '{"query":"database migrations", "limit": 3}'
 ```
+
+Ask a retrieval-grounded question:
+
+```bash
+curl -X POST http://127.0.0.1:8001/query \
+  -H "Content-Type: application/json" \
+  -d '{"question":"What does this project use for database migrations?", "limit": 3}'
+```

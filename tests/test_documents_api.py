@@ -52,18 +52,18 @@ def override_get_db() -> Generator[Session, None, None]:
         db.close()
 
 
-app.dependency_overrides[get_db] = override_get_db
-app.dependency_overrides[get_vector_store] = lambda: fake_vector_store
 client = TestClient(app)
 
 
 def setup_function() -> None:
     fake_vector_store.indexed_chunks.clear()
+    app.dependency_overrides[get_db] = override_get_db
+    app.dependency_overrides[get_vector_store] = lambda: fake_vector_store
     Base.metadata.drop_all(bind=engine)
     Base.metadata.create_all(bind=engine)
 
 
-def teardown_module() -> None:
+def teardown_function() -> None:
     app.dependency_overrides.clear()
 
 
