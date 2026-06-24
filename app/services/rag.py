@@ -2,8 +2,9 @@ from dataclasses import dataclass
 
 from sqlalchemy.orm import Session
 
-from app.models.conversation import Conversation, Message, MessageRole
+from app.models.conversation import Conversation
 from app.services.answer_providers import AnswerProvider
+from app.services.rag_graph import build_rag_graph
 from app.services.vector_store import VectorSearchResult, VectorStore
 
 
@@ -31,34 +32,27 @@ def answer_question(
     question: str,
     limit: int = 4,
 ) -> RagAnswer:
-    results = vector_store.search(question, limit=limit)
-    answer = answer_provider.generate_answer(question, results)
-
-    conversation = Conversation(title=question[:255])
-    db.add(conversation)
-    db.flush()
-
-    db.add_all(
-        [
-            Message(
-                conversation_id=conversation.id,
-                role=MessageRole.USER,
-                content=question,
-            ),
-            Message(
-                conversation_id=conversation.id,
-                role=MessageRole.ASSISTANT,
-                content=answer,
-                model=answer_provider.model_name,
-            ),
-        ]
+    graph = build_rag_graph(
+        db=db,
+        vector_store=vector_store,
+        answer_provider=answer_provider,
     )
-    db.commit()
-    db.refresh(conversation)
+    state = graph.invoke(
+        {
+            "question": question,
+            "limit": limit,
+            "results": [],
+            "answer": "",
+            "conversation": None,
+        }
+    )
+    conversation = state["conversation"]
+    assert conversation is not None
+    results = state["results"]
 
     return RagAnswer(
         conversation=conversation,
         question=question,
-        answer=answer,
+        answer=state["answer"],
         citations=[Citation(result=result) for result in results],
     )

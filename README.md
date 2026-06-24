@@ -108,3 +108,9 @@ ANSWER_PROVIDER="openai"
 OPENAI_API_KEY="your-api-key"
 OPENAI_ANSWER_MODEL="gpt-5.5-mini"
 ```
+
+The query flow is orchestrated with LangGraph:
+
+```text
+retrieve context -> route by context availability -> generate/fallback answer -> persist conversation
+```
