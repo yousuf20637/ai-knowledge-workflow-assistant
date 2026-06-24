@@ -83,3 +83,11 @@ List uploaded documents:
 ```bash
 curl http://127.0.0.1:8001/documents
 ```
+
+Search indexed document chunks:
+
+```bash
+curl -X POST http://127.0.0.1:8001/documents/search \
+  -H "Content-Type: application/json" \
+  -d '{"query":"database migrations", "limit": 3}'
+```

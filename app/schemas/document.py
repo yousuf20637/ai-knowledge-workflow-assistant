@@ -24,3 +24,17 @@ class DocumentRead(BaseModel):
     chunk_count: int
 
     model_config = ConfigDict(from_attributes=True)
+
+
+class DocumentSearchRequest(BaseModel):
+    query: str
+    limit: int = 5
+
+
+class DocumentSearchResult(BaseModel):
+    chunk_id: uuid.UUID
+    document_id: uuid.UUID
+    filename: str
+    chunk_index: int
+    content: str
+    distance: float | None
