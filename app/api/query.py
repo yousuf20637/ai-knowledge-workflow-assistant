@@ -3,10 +3,11 @@ from typing import Annotated
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 
-from app.api.dependencies import get_vector_store
+from app.api.dependencies import get_answer_provider, get_vector_store
 from app.db.session import get_db
 from app.schemas.query import QueryCitation, QueryRequest, QueryResponse
 from app.services.rag import answer_question
+from app.services.answer_providers import AnswerProvider
 from app.services.vector_store import VectorStore
 
 router = APIRouter(prefix="/query", tags=["query"])
@@ -17,10 +18,12 @@ def query_documents(
     request: QueryRequest,
     db: Annotated[Session, Depends(get_db)],
     vector_store: Annotated[VectorStore, Depends(get_vector_store)],
+    answer_provider: Annotated[AnswerProvider, Depends(get_answer_provider)],
 ) -> QueryResponse:
     rag_answer = answer_question(
         db=db,
         vector_store=vector_store,
+        answer_provider=answer_provider,
         question=request.question,
         limit=request.limit,
     )

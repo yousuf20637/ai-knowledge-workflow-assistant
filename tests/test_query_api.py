@@ -6,11 +6,12 @@ from sqlalchemy import create_engine, select
 from sqlalchemy.orm import Session, sessionmaker
 from sqlalchemy.pool import StaticPool
 
-from app.api.dependencies import get_vector_store
+from app.api.dependencies import get_answer_provider, get_vector_store
 from app.db.base import Base
 from app.db.session import get_db
 from app.main import app
 from app.models.conversation import Conversation, Message, MessageRole
+from app.services.answer_providers import LocalAnswerProvider
 from app.services.vector_store import VectorSearchResult
 
 
@@ -53,6 +54,7 @@ client = TestClient(app)
 def setup_function() -> None:
     app.dependency_overrides[get_db] = override_get_db
     app.dependency_overrides[get_vector_store] = lambda: FakeVectorStore()
+    app.dependency_overrides[get_answer_provider] = lambda: LocalAnswerProvider()
     Base.metadata.drop_all(bind=engine)
     Base.metadata.create_all(bind=engine)
 

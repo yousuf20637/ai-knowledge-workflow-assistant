@@ -7,6 +7,9 @@ class Settings(BaseSettings):
     database_url: str = "postgresql+psycopg://postgres:postgres@localhost:5432/ai_knowledge"
     chroma_path: str = ".chroma"
     chroma_collection_name: str = "document_chunks"
+    answer_provider: str = "local"
+    openai_api_key: str = ""
+    openai_answer_model: str = "gpt-5.5-mini"
 
     model_config = SettingsConfigDict(env_file=".env", env_file_encoding="utf-8")
 

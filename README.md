@@ -99,3 +99,12 @@ curl -X POST http://127.0.0.1:8001/query \
   -H "Content-Type: application/json" \
   -d '{"question":"What does this project use for database migrations?", "limit": 3}'
 ```
+
+By default, answers use a free local formatter. To use OpenAI for answer
+generation, set these values in `.env`:
+
+```bash
+ANSWER_PROVIDER="openai"
+OPENAI_API_KEY="your-api-key"
+OPENAI_ANSWER_MODEL="gpt-5.5-mini"
+```
