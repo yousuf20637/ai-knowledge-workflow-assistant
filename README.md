@@ -70,3 +70,16 @@ Apply database migrations:
 ```bash
 alembic upgrade head
 ```
+
+Upload a text or Markdown document:
+
+```bash
+curl -X POST http://127.0.0.1:8001/documents \
+  -F "file=@README.md;type=text/markdown"
+```
+
+List uploaded documents:
+
+```bash
+curl http://127.0.0.1:8001/documents
+```
