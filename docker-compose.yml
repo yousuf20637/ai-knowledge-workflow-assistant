@@ -16,6 +16,19 @@ services:
       - ./app:/app/app
       - chroma_data:/app/.chroma
 
+  frontend:
+    build: .
+    container_name: ai-knowledge-frontend
+    environment:
+      API_BASE_URL: http://api:8000
+    command: streamlit run frontend/app.py --server.address 0.0.0.0 --server.port 8501
+    ports:
+      - "8501:8501"
+    depends_on:
+      - api
+    volumes:
+      - ./frontend:/app/frontend
+
   postgres:
     image: postgres:16-alpine
     container_name: ai-knowledge-postgres

@@ -1,35 +1,68 @@
 # AI Knowledge Workflow Assistant
 
-A resume-oriented AI application that will combine FastAPI, LangGraph, LangChain,
-PostgreSQL, Chroma, Docker, and the OpenAI API to answer questions over uploaded
-documents with citations and persistent conversation history.
+A full-stack RAG application for asking grounded questions over uploaded
+documents. The app combines a FastAPI backend, LangGraph workflow orchestration,
+PostgreSQL persistence, Chroma vector search, a Streamlit frontend, Docker, and
+GitHub Actions CI.
 
-## Current Status
+The default mode is inexpensive: local deterministic embeddings and a local
+answer formatter are used unless OpenAI generation is explicitly enabled.
 
-- FastAPI backend scaffolded
-- Health check endpoint available at `/health`
-- Local Python virtual environment configured
-- Dockerfile added for the API service
-- Docker Compose added for API + PostgreSQL
+## Highlights
 
-## Run Locally
+- Upload text or Markdown documents through an API or Streamlit UI
+- Chunk and store document metadata in PostgreSQL
+- Index chunks in Chroma for semantic retrieval
+- Answer questions with citations from retrieved chunks
+- Orchestrate the RAG flow with LangGraph
+- Persist conversations and view saved history
+- Run the full stack locally with Docker Compose
+- Validate changes with automated tests in GitHub Actions
 
-```bash
-source .venv/bin/activate
-uvicorn app.main:app --reload
-```
+## Tech Stack
 
-Then open:
+- Python 3.12
+- FastAPI
+- LangGraph
+- LangChain Core
+- OpenAI API, optional
+- PostgreSQL
+- Chroma
+- Streamlit
+- Docker and Docker Compose
+- Pytest
+- GitHub Actions
+
+## Architecture
 
 ```text
-http://127.0.0.1:8000/health
+Streamlit UI
+    |
+FastAPI API
+    |
+    |-- PostgreSQL: documents, chunks, conversations, messages
+    |-- Chroma: vector index for retrieval
+    |-- LangGraph: retrieve -> route -> answer/fallback -> persist
+    |
+Answer provider
+    |-- Local formatter by default
+    |-- OpenAI provider when enabled
 ```
 
-Expected response:
+## Demo Flow
 
-```json
-{"status":"ok"}
-```
+Use this flow when showing the project:
+
+1. Start the Docker stack.
+2. Open the Streamlit frontend.
+3. Click **Load sample knowledge base** in the sidebar.
+4. Choose one of the example questions above the ask box.
+5. Submit the question and review the answer with citations.
+6. Open the history selector in the sidebar to show saved conversations.
+
+This demonstrates ingestion, vector retrieval, LangGraph orchestration,
+conversation persistence, citations, and the user interface without requiring
+paid API calls.
 
 ## Run With Docker
 
@@ -39,13 +72,19 @@ Create a local `.env` file from the example values:
 cp .env.example .env
 ```
 
-Start the API and PostgreSQL:
+Start the API, frontend, and PostgreSQL:
 
 ```bash
 docker compose up --build
 ```
 
-Then open:
+Open the frontend:
+
+```text
+http://127.0.0.1:8501
+```
+
+API health check:
 
 ```text
 http://127.0.0.1:8001/health
@@ -57,19 +96,23 @@ Stop the stack:
 docker compose down
 ```
 
-## Development Checks
+## Run Locally
 
-Run tests:
-
-```bash
-pytest
-```
-
-Apply database migrations:
+Activate the virtual environment and start the API:
 
 ```bash
-alembic upgrade head
+source .venv/bin/activate
+uvicorn app.main:app --reload
 ```
+
+Run the frontend in a second terminal:
+
+```bash
+source .venv/bin/activate
+API_BASE_URL=http://127.0.0.1:8000 streamlit run frontend/app.py
+```
+
+## API Examples
 
 Upload a text or Markdown document:
 
@@ -84,7 +127,7 @@ List uploaded documents:
 curl http://127.0.0.1:8001/documents
 ```
 
-Search indexed document chunks:
+Search indexed chunks:
 
 ```bash
 curl -X POST http://127.0.0.1:8001/documents/search \
@@ -100,6 +143,14 @@ curl -X POST http://127.0.0.1:8001/query \
   -d '{"question":"What does this project use for database migrations?", "limit": 3}'
 ```
 
+View saved conversations:
+
+```bash
+curl http://127.0.0.1:8001/conversations
+```
+
+## OpenAI Mode
+
 By default, answers use a free local formatter. To use OpenAI for answer
 generation, set these values in `.env`:
 
@@ -109,8 +160,25 @@ OPENAI_API_KEY="your-api-key"
 OPENAI_ANSWER_MODEL="gpt-5.5-mini"
 ```
 
-The query flow is orchestrated with LangGraph:
+## Development
 
-```text
-retrieve context -> route by context availability -> generate/fallback answer -> persist conversation
+Run tests:
+
+```bash
+pytest
 ```
+
+Apply database migrations:
+
+```bash
+alembic upgrade head
+```
+
+The same test suite runs in GitHub Actions on pushes and pull requests to
+`main`.
+
+## Resume Summary
+
+Built a Dockerized, full-stack RAG assistant with FastAPI, LangGraph,
+PostgreSQL, Chroma, Streamlit, automated tests, conversation persistence,
+citations, optional OpenAI generation, and GitHub Actions CI.

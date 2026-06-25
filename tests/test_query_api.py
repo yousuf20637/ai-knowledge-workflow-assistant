@@ -81,3 +81,38 @@ def test_query_documents_returns_answer_with_citations_and_persists_messages() -
     assert messages[0].role == MessageRole.USER
     assert messages[1].role == MessageRole.ASSISTANT
     assert messages[1].model == "local-retrieval-formatter"
+
+
+def test_conversation_history_lists_and_returns_messages() -> None:
+    query_response = client.post(
+        "/query",
+        json={"question": "What does the assistant retrieve?", "limit": 1},
+    )
+    conversation_id = query_response.json()["conversation_id"]
+
+    list_response = client.get("/conversations")
+
+    assert list_response.status_code == 200
+    conversations = list_response.json()
+    assert len(conversations) == 1
+    assert conversations[0]["id"] == conversation_id
+    assert conversations[0]["message_count"] == 2
+    assert conversations[0]["title"] == "What does the assistant retrieve?"
+
+    detail_response = client.get(f"/conversations/{conversation_id}")
+
+    assert detail_response.status_code == 200
+    detail = detail_response.json()
+    assert detail["id"] == conversation_id
+    assert [message["role"] for message in detail["messages"]] == ["user", "assistant"]
+    assert detail["messages"][0]["content"] == "What does the assistant retrieve?"
+    assert "rag-notes.md#chunk-2" in detail["messages"][1]["content"]
+
+
+def test_get_conversation_returns_404_for_unknown_id() -> None:
+    missing_id = uuid.uuid4()
+
+    response = client.get(f"/conversations/{missing_id}")
+
+    assert response.status_code == 404
+    assert response.json()["detail"] == "Conversation not found"
