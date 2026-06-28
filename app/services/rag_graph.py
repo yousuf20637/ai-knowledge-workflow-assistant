@@ -17,11 +17,39 @@ class RagGraphState(TypedDict):
     conversation: Conversation | None
 
 
+SMALL_TALK_INPUTS = {
+    "hello",
+    "hello there",
+    "hey",
+    "hi",
+    "hi there",
+}
+
+
+def is_small_talk(question: str) -> bool:
+    normalized = question.strip().lower().rstrip(".!?")
+    return normalized in SMALL_TALK_INPUTS
+
+
 def build_rag_graph(
     db: Session,
     vector_store: VectorStore,
     answer_provider: AnswerProvider,
 ):
+    def route_initial_question(state: RagGraphState) -> Literal["small_talk_answer", "retrieve_context"]:
+        if is_small_talk(state["question"]):
+            return "small_talk_answer"
+
+        return "retrieve_context"
+
+    def small_talk_answer(state: RagGraphState) -> dict:
+        return {
+            "answer": (
+                "Hello! Upload a document or ask a question about the indexed knowledge base, "
+                "and I will answer with citations from the retrieved chunks."
+            )
+        }
+
     def retrieve_context(state: RagGraphState) -> dict:
         return {
             "results": vector_store.search(
@@ -79,6 +107,10 @@ def build_rag_graph(
 
     graph = StateGraph(RagGraphState)
     graph.add_node(
+        "small_talk_answer",
+        trace_rag_node("small_talk_answer")(small_talk_answer),
+    )
+    graph.add_node(
         "retrieve_context",
         trace_rag_node("retrieve_context", run_type="retriever")(retrieve_context),
     )
@@ -95,7 +127,14 @@ def build_rag_graph(
         trace_rag_node("persist_conversation", run_type="tool")(persist_conversation),
     )
 
-    graph.add_edge(START, "retrieve_context")
+    graph.add_conditional_edges(
+        START,
+        route_initial_question,
+        {
+            "small_talk_answer": "small_talk_answer",
+            "retrieve_context": "retrieve_context",
+        },
+    )
     graph.add_conditional_edges(
         "retrieve_context",
         route_after_retrieval,
@@ -104,6 +143,7 @@ def build_rag_graph(
             "fallback_answer": "fallback_answer",
         },
     )
+    graph.add_edge("small_talk_answer", "persist_conversation")
     graph.add_edge("generate_answer", "persist_conversation")
     graph.add_edge("fallback_answer", "persist_conversation")
     graph.add_edge("persist_conversation", END)

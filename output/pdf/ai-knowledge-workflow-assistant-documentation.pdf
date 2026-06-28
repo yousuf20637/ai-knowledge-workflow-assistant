@@ -1,0 +1,183 @@
+%PDF-1.4
+%‚„œ”
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [6 0 R 8 0 R 10 0 R] /Count 3 >>
+endobj
+3 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+4 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold >>
+endobj
+5 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Courier >>
+endobj
+6 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 7 0 R >>
+endobj
+7 0 obj
+<< /Length 3658 >>
+stream
+0.09 0.17 0.28 rg
+0 768 612 24 re f
+BT /F2 8 Tf 54 775 Td 1 1 1 rg (AI Knowledge Workflow Assistant) Tj ET
+BT /F1 8 Tf 504 34 Td 0.32 0.38 0.45 rg (Page 1 of 3) Tj ET
+BT /F2 22 Tf 54 730 Td 0.08 0.12 0.18 rg (AI Knowledge Workflow Assistant) Tj ET
+BT /F1 11 Tf 54 700 Td 0.08 0.12 0.18 rg (Full-stack RAG application documentation) Tj ET
+BT /F1 10 Tf 54 670 Td 0.08 0.12 0.18 rg (A full-stack RAG application for asking grounded questions over uploaded documents. The) Tj ET
+BT /F1 10 Tf 54 656 Td 0.08 0.12 0.18 rg (app combines a FastAPI backend, LangGraph workflow orchestration, PostgreSQL) Tj ET
+BT /F1 10 Tf 54 642 Td 0.08 0.12 0.18 rg (persistence, Chroma vector search, a Streamlit frontend, Docker, and GitHub Actions CI.) Tj ET
+BT /F1 10 Tf 54 621 Td 0.08 0.12 0.18 rg (The default mode is inexpensive: local deterministic embeddings and a local answer) Tj ET
+BT /F1 10 Tf 54 607 Td 0.08 0.12 0.18 rg (formatter are used unless OpenAI generation is explicitly enabled.) Tj ET
+BT /F2 15 Tf 54 578 Td 0.08 0.12 0.18 rg (Highlights) Tj ET
+BT /F1 10 Tf 66 556 Td 0.08 0.12 0.18 rg (- Upload text or Markdown documents through an API or Streamlit UI) Tj ET
+BT /F1 10 Tf 66 542 Td 0.08 0.12 0.18 rg (- Chunk and store document metadata in PostgreSQL) Tj ET
+BT /F1 10 Tf 66 528 Td 0.08 0.12 0.18 rg (- Index chunks in Chroma for semantic retrieval) Tj ET
+BT /F1 10 Tf 66 514 Td 0.08 0.12 0.18 rg (- Answer questions with citations from retrieved chunks) Tj ET
+BT /F1 10 Tf 66 500 Td 0.08 0.12 0.18 rg (- Orchestrate the RAG flow with LangGraph) Tj ET
+BT /F1 10 Tf 66 486 Td 0.08 0.12 0.18 rg (- Persist conversations and view saved history) Tj ET
+BT /F1 10 Tf 66 472 Td 0.08 0.12 0.18 rg (- Run the full stack locally with Docker Compose) Tj ET
+BT /F1 10 Tf 66 458 Td 0.08 0.12 0.18 rg (- Validate changes with automated tests in GitHub Actions) Tj ET
+BT /F2 15 Tf 54 436 Td 0.08 0.12 0.18 rg (Tech Stack) Tj ET
+BT /F1 10 Tf 66 414 Td 0.08 0.12 0.18 rg (- Python 3.12) Tj ET
+BT /F1 10 Tf 66 400 Td 0.08 0.12 0.18 rg (- FastAPI) Tj ET
+BT /F1 10 Tf 66 386 Td 0.08 0.12 0.18 rg (- LangGraph) Tj ET
+BT /F1 10 Tf 66 372 Td 0.08 0.12 0.18 rg (- LangChain Core) Tj ET
+BT /F1 10 Tf 66 358 Td 0.08 0.12 0.18 rg (- OpenAI API, optional) Tj ET
+BT /F1 10 Tf 66 344 Td 0.08 0.12 0.18 rg (- PostgreSQL) Tj ET
+BT /F1 10 Tf 66 330 Td 0.08 0.12 0.18 rg (- Chroma) Tj ET
+BT /F1 10 Tf 66 316 Td 0.08 0.12 0.18 rg (- Streamlit) Tj ET
+BT /F1 10 Tf 66 302 Td 0.08 0.12 0.18 rg (- Docker and Docker Compose) Tj ET
+BT /F1 10 Tf 66 288 Td 0.08 0.12 0.18 rg (- Pytest) Tj ET
+BT /F1 10 Tf 66 274 Td 0.08 0.12 0.18 rg (- GitHub Actions) Tj ET
+BT /F2 15 Tf 54 252 Td 0.08 0.12 0.18 rg (Architecture) Tj ET
+BT /F3 8 Tf 64 230 Td 0.08 0.12 0.18 rg (Streamlit UI) Tj ET
+BT /F3 8 Tf 64 219 Td 0.08 0.12 0.18 rg (    |) Tj ET
+BT /F3 8 Tf 64 208 Td 0.08 0.12 0.18 rg (FastAPI API) Tj ET
+BT /F3 8 Tf 64 197 Td 0.08 0.12 0.18 rg (    |) Tj ET
+BT /F3 8 Tf 64 186 Td 0.08 0.12 0.18 rg (    |-- PostgreSQL: documents, chunks, conversations, messages) Tj ET
+BT /F3 8 Tf 64 175 Td 0.08 0.12 0.18 rg (    |-- Chroma: vector index for retrieval) Tj ET
+BT /F3 8 Tf 64 164 Td 0.08 0.12 0.18 rg (    |-- LangGraph: retrieve -> route -> answer/fallback -> persist) Tj ET
+BT /F3 8 Tf 64 153 Td 0.08 0.12 0.18 rg (    |) Tj ET
+BT /F3 8 Tf 64 142 Td 0.08 0.12 0.18 rg (Answer provider) Tj ET
+BT /F3 8 Tf 64 131 Td 0.08 0.12 0.18 rg (    |-- Local formatter by default) Tj ET
+BT /F3 8 Tf 64 120 Td 0.08 0.12 0.18 rg (    |-- OpenAI provider when enabled) Tj ET
+BT /F2 15 Tf 54 94 Td 0.08 0.12 0.18 rg (Demo Flow) Tj ET
+BT /F1 10 Tf 54 72 Td 0.08 0.12 0.18 rg (Use this flow when showing the project:) Tj ET
+endstream
+endobj
+8 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 9 0 R >>
+endobj
+9 0 obj
+<< /Length 3282 >>
+stream
+0.09 0.17 0.28 rg
+0 768 612 24 re f
+BT /F2 8 Tf 54 775 Td 1 1 1 rg (AI Knowledge Workflow Assistant) Tj ET
+BT /F1 8 Tf 504 34 Td 0.32 0.38 0.45 rg (Page 2 of 3) Tj ET
+BT /F1 10 Tf 66 723 Td 0.08 0.12 0.18 rg (1. Start the Docker stack.) Tj ET
+BT /F1 10 Tf 66 709 Td 0.08 0.12 0.18 rg (2. Open the Streamlit frontend.) Tj ET
+BT /F1 10 Tf 66 695 Td 0.08 0.12 0.18 rg (3. Click Load sample knowledge base in the sidebar.) Tj ET
+BT /F1 10 Tf 66 681 Td 0.08 0.12 0.18 rg (4. Choose one of the example questions above the ask box.) Tj ET
+BT /F1 10 Tf 66 667 Td 0.08 0.12 0.18 rg (5. Submit the question and review the answer with citations.) Tj ET
+BT /F1 10 Tf 66 653 Td 0.08 0.12 0.18 rg (6. Open the history selector in the sidebar to show saved conversations.) Tj ET
+BT /F1 10 Tf 54 639 Td 0.08 0.12 0.18 rg (This demonstrates ingestion, vector retrieval, LangGraph orchestration, conversation) Tj ET
+BT /F1 10 Tf 54 625 Td 0.08 0.12 0.18 rg (persistence, citations, and the user interface without requiring paid API calls.) Tj ET
+BT /F2 15 Tf 54 596 Td 0.08 0.12 0.18 rg (Run With Docker) Tj ET
+BT /F1 10 Tf 54 574 Td 0.08 0.12 0.18 rg (Create a local .env file from the example values:) Tj ET
+BT /F3 8 Tf 64 553 Td 0.08 0.12 0.18 rg (cp .env.example .env) Tj ET
+BT /F1 10 Tf 54 535 Td 0.08 0.12 0.18 rg (Start the API, frontend, and PostgreSQL:) Tj ET
+BT /F3 8 Tf 64 514 Td 0.08 0.12 0.18 rg (docker compose up --build) Tj ET
+BT /F1 10 Tf 54 496 Td 0.08 0.12 0.18 rg (Open the frontend:) Tj ET
+BT /F3 8 Tf 64 475 Td 0.08 0.12 0.18 rg (http://127.0.0.1:8501) Tj ET
+BT /F1 10 Tf 54 457 Td 0.08 0.12 0.18 rg (API health check:) Tj ET
+BT /F3 8 Tf 64 436 Td 0.08 0.12 0.18 rg (http://127.0.0.1:8001/health) Tj ET
+BT /F1 10 Tf 54 418 Td 0.08 0.12 0.18 rg (Stop the stack:) Tj ET
+BT /F3 8 Tf 64 397 Td 0.08 0.12 0.18 rg (docker compose down) Tj ET
+BT /F2 15 Tf 54 371 Td 0.08 0.12 0.18 rg (Run Locally) Tj ET
+BT /F1 10 Tf 54 349 Td 0.08 0.12 0.18 rg (Activate the virtual environment and start the API:) Tj ET
+BT /F3 8 Tf 64 328 Td 0.08 0.12 0.18 rg (source .venv/bin/activate) Tj ET
+BT /F3 8 Tf 64 317 Td 0.08 0.12 0.18 rg (uvicorn app.main:app --reload) Tj ET
+BT /F1 10 Tf 54 299 Td 0.08 0.12 0.18 rg (Run the frontend in a second terminal:) Tj ET
+BT /F3 8 Tf 64 278 Td 0.08 0.12 0.18 rg (source .venv/bin/activate) Tj ET
+BT /F3 8 Tf 64 267 Td 0.08 0.12 0.18 rg (API_BASE_URL=http://127.0.0.1:8000 streamlit run frontend/app.py) Tj ET
+BT /F2 15 Tf 54 241 Td 0.08 0.12 0.18 rg (API Examples) Tj ET
+BT /F1 10 Tf 54 219 Td 0.08 0.12 0.18 rg (Upload a text or Markdown document:) Tj ET
+BT /F3 8 Tf 64 198 Td 0.08 0.12 0.18 rg (curl -X POST http://127.0.0.1:8001/documents \\) Tj ET
+BT /F3 8 Tf 64 187 Td 0.08 0.12 0.18 rg (  -F "file=@README.md;type=text/markdown") Tj ET
+BT /F1 10 Tf 54 169 Td 0.08 0.12 0.18 rg (List uploaded documents:) Tj ET
+BT /F3 8 Tf 64 148 Td 0.08 0.12 0.18 rg (curl http://127.0.0.1:8001/documents) Tj ET
+BT /F1 10 Tf 54 130 Td 0.08 0.12 0.18 rg (Search indexed chunks:) Tj ET
+BT /F3 8 Tf 64 109 Td 0.08 0.12 0.18 rg (curl -X POST http://127.0.0.1:8001/documents/search \\) Tj ET
+BT /F3 8 Tf 64 98 Td 0.08 0.12 0.18 rg (  -H "Content-Type: application/json" \\) Tj ET
+BT /F3 8 Tf 64 87 Td 0.08 0.12 0.18 rg (  -d '{"query":"database migrations", "limit": 3}') Tj ET
+endstream
+endobj
+10 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 11 0 R >>
+endobj
+11 0 obj
+<< /Length 3128 >>
+stream
+0.09 0.17 0.28 rg
+0 768 612 24 re f
+BT /F2 8 Tf 54 775 Td 1 1 1 rg (AI Knowledge Workflow Assistant) Tj ET
+BT /F1 8 Tf 504 34 Td 0.32 0.38 0.45 rg (Page 3 of 3) Tj ET
+BT /F1 10 Tf 54 730 Td 0.08 0.12 0.18 rg (Ask a retrieval-grounded question:) Tj ET
+BT /F3 8 Tf 64 709 Td 0.08 0.12 0.18 rg (curl -X POST http://127.0.0.1:8001/query \\) Tj ET
+BT /F3 8 Tf 64 698 Td 0.08 0.12 0.18 rg (  -H "Content-Type: application/json" \\) Tj ET
+BT /F3 8 Tf 64 687 Td 0.08 0.12 0.18 rg (  -d '{"question":"What does this project use for database migrations?", "limit":) Tj ET
+BT /F3 8 Tf 64 676 Td 0.08 0.12 0.18 rg (3}') Tj ET
+BT /F1 10 Tf 54 658 Td 0.08 0.12 0.18 rg (View saved conversations:) Tj ET
+BT /F3 8 Tf 64 637 Td 0.08 0.12 0.18 rg (curl http://127.0.0.1:8001/conversations) Tj ET
+BT /F2 15 Tf 54 611 Td 0.08 0.12 0.18 rg (OpenAI Mode) Tj ET
+BT /F1 10 Tf 54 589 Td 0.08 0.12 0.18 rg (By default, answers use a free local formatter. To use OpenAI for answer generation, set) Tj ET
+BT /F1 10 Tf 54 575 Td 0.08 0.12 0.18 rg (these values in .env:) Tj ET
+BT /F3 8 Tf 64 554 Td 0.08 0.12 0.18 rg (ANSWER_PROVIDER="openai") Tj ET
+BT /F3 8 Tf 64 543 Td 0.08 0.12 0.18 rg (OPENAI_API_KEY="your-api-key") Tj ET
+BT /F3 8 Tf 64 532 Td 0.08 0.12 0.18 rg (OPENAI_ANSWER_MODEL="gpt-5.5-mini") Tj ET
+BT /F2 15 Tf 54 506 Td 0.08 0.12 0.18 rg (LangSmith Tracing) Tj ET
+BT /F1 10 Tf 54 484 Td 0.08 0.12 0.18 rg (LangGraph runs can be traced to LangSmith so you can inspect the RAG workflow on the) Tj ET
+BT /F1 10 Tf 54 470 Td 0.08 0.12 0.18 rg (LangChain/LangSmith website. Add these values to .env, restart the API, then run a) Tj ET
+BT /F1 10 Tf 54 456 Td 0.08 0.12 0.18 rg (query:) Tj ET
+BT /F3 8 Tf 64 435 Td 0.08 0.12 0.18 rg (LANGSMITH_TRACING=true) Tj ET
+BT /F3 8 Tf 64 424 Td 0.08 0.12 0.18 rg (LANGSMITH_API_KEY="your-langsmith-api-key") Tj ET
+BT /F3 8 Tf 64 413 Td 0.08 0.12 0.18 rg (LANGSMITH_PROJECT="ai-knowledge-workflow-assistant") Tj ET
+BT /F1 10 Tf 54 395 Td 0.08 0.12 0.18 rg (Open https://smith.langchain.com/ and select the matching project. Each query records) Tj ET
+BT /F1 10 Tf 54 381 Td 0.08 0.12 0.18 rg (named spans for retrieval, answer generation, fallback handling, and conversation) Tj ET
+BT /F1 10 Tf 54 367 Td 0.08 0.12 0.18 rg (persistence.) Tj ET
+BT /F2 15 Tf 54 338 Td 0.08 0.12 0.18 rg (Development) Tj ET
+BT /F1 10 Tf 54 316 Td 0.08 0.12 0.18 rg (Run tests:) Tj ET
+BT /F3 8 Tf 64 295 Td 0.08 0.12 0.18 rg (pytest) Tj ET
+BT /F1 10 Tf 54 277 Td 0.08 0.12 0.18 rg (Apply database migrations:) Tj ET
+BT /F3 8 Tf 64 256 Td 0.08 0.12 0.18 rg (alembic upgrade head) Tj ET
+BT /F1 10 Tf 54 238 Td 0.08 0.12 0.18 rg (The same test suite runs in GitHub Actions on pushes and pull requests to main.) Tj ET
+BT /F2 15 Tf 54 209 Td 0.08 0.12 0.18 rg (Resume Summary) Tj ET
+BT /F1 10 Tf 54 187 Td 0.08 0.12 0.18 rg (Built a Dockerized, full-stack RAG assistant with FastAPI, LangGraph, PostgreSQL,) Tj ET
+BT /F1 10 Tf 54 173 Td 0.08 0.12 0.18 rg (Chroma, Streamlit, automated tests, conversation persistence, citations, optional OpenAI) Tj ET
+BT /F1 10 Tf 54 159 Td 0.08 0.12 0.18 rg (generation, and GitHub Actions CI.) Tj ET
+endstream
+endobj
+xref
+0 12
+0000000000 65535 f 
+0000000015 00000 n 
+0000000064 00000 n 
+0000000134 00000 n 
+0000000204 00000 n 
+0000000279 00000 n 
+0000000347 00000 n 
+0000000493 00000 n 
+0000004202 00000 n 
+0000004348 00000 n 
+0000007681 00000 n 
+0000007829 00000 n 
+trailer
+<< /Size 12 /Root 1 0 R /Info << /Title (AI Knowledge Workflow Assistant Documentation) /Author (Yousuf) >> >>
+startxref
+11009
+%%EOF
