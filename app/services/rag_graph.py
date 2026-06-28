@@ -5,6 +5,7 @@ from sqlalchemy.orm import Session
 
 from app.models.conversation import Conversation, Message, MessageRole
 from app.services.answer_providers import AnswerProvider, LocalAnswerProvider
+from app.services.tracing import trace_rag_node
 from app.services.vector_store import VectorSearchResult, VectorStore
 
 
@@ -77,10 +78,22 @@ def build_rag_graph(
         return {"conversation": conversation}
 
     graph = StateGraph(RagGraphState)
-    graph.add_node("retrieve_context", retrieve_context)
-    graph.add_node("generate_answer", generate_answer)
-    graph.add_node("fallback_answer", fallback_answer)
-    graph.add_node("persist_conversation", persist_conversation)
+    graph.add_node(
+        "retrieve_context",
+        trace_rag_node("retrieve_context", run_type="retriever")(retrieve_context),
+    )
+    graph.add_node(
+        "generate_answer",
+        trace_rag_node("generate_answer")(generate_answer),
+    )
+    graph.add_node(
+        "fallback_answer",
+        trace_rag_node("fallback_answer")(fallback_answer),
+    )
+    graph.add_node(
+        "persist_conversation",
+        trace_rag_node("persist_conversation", run_type="tool")(persist_conversation),
+    )
 
     graph.add_edge(START, "retrieve_context")
     graph.add_conditional_edges(

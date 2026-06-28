@@ -160,6 +160,22 @@ OPENAI_API_KEY="your-api-key"
 OPENAI_ANSWER_MODEL="gpt-5.5-mini"
 ```
 
+## LangSmith Tracing
+
+LangGraph runs can be traced to LangSmith so you can inspect the RAG workflow
+on the LangChain/LangSmith website. Add these values to `.env`, restart the API,
+then run a query:
+
+```bash
+LANGSMITH_TRACING=true
+LANGSMITH_API_KEY="your-langsmith-api-key"
+LANGSMITH_PROJECT="ai-knowledge-workflow-assistant"
+```
+
+Open `https://smith.langchain.com/` and select the matching project. Each query
+records named spans for retrieval, answer generation, fallback handling, and
+conversation persistence.
+
 ## Development
 
 Run tests:

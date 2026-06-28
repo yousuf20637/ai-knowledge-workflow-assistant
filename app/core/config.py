@@ -10,6 +10,9 @@ class Settings(BaseSettings):
     answer_provider: str = "local"
     openai_api_key: str = ""
     openai_answer_model: str = "gpt-5.5-mini"
+    langsmith_tracing: bool = False
+    langsmith_api_key: str = ""
+    langsmith_project: str = "ai-knowledge-workflow-assistant"
 
     model_config = SettingsConfigDict(env_file=".env", env_file_encoding="utf-8")
 
